@@ -11,3 +11,4 @@ wheels/
 
 # Windsurf editor
 .windsurfrules
+.vscode

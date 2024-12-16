@@ -35,7 +35,7 @@ unblu-docs-explorer = "unblu_docs_explorer:main"
 [tool.ruff]
 line-length = 120
 exclude = [
-    "docs/**",
+    "docs/"
 ]
 
 [tool.pytest.ini_options]
