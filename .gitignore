@@ -13,3 +13,4 @@ wheels/
 .windsurfrules
 .vscode
 .markdownlint.json
+.env
