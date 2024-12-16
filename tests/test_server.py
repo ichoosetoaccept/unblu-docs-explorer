@@ -30,7 +30,7 @@ def config_path(tmp_path):
 @pytest.mark.asyncio
 async def test_server_lists_resources(config_path):
     """Verify server properly exposes documentation sections."""
-    server = UnbluDocsServer(config_path)
+    server = await UnbluDocsServer.create(config_path)
     resources = await server.list_resources()
 
     assert len(resources) > 0
@@ -40,7 +40,7 @@ async def test_server_lists_resources(config_path):
 @pytest.mark.asyncio
 async def test_search_tool_integration(config_path):
     """Verify search tool functions correctly through MCP interface."""
-    server = UnbluDocsServer(config_path)
+    server = await UnbluDocsServer.create(config_path)
     result = await server.handle_tool_call("search_docs", {"query": "installation"})
 
     assert isinstance(result, list)
@@ -50,7 +50,7 @@ async def test_search_tool_integration(config_path):
 @pytest.mark.asyncio
 async def test_invalid_tool_raises_error(config_path):
     """Verify invalid tool calls are handled properly."""
-    server = UnbluDocsServer(config_path)
+    server = await UnbluDocsServer.create(config_path)
     with pytest.raises(DocumentationError):
         await server.handle_tool_call("nonexistent_tool", {})
 
@@ -59,4 +59,4 @@ async def test_invalid_tool_raises_error(config_path):
 async def test_server_handles_invalid_config():
     """Verify server properly handles invalid config file."""
     with pytest.raises(DocumentationError):
-        UnbluDocsServer("nonexistent_config.json")
+        await UnbluDocsServer.create("nonexistent_config.json")

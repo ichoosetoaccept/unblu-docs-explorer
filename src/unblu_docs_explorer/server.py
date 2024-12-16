@@ -5,6 +5,7 @@ import mcp.types as types
 from mcp.server import Server
 from pydantic import AnyUrl
 import mcp.server.stdio
+import asyncio
 
 from .search import DocumentationSearch
 from .errors import DocumentationError
@@ -121,10 +122,11 @@ async def handle_call_tool(name: str, arguments: dict | None) -> any:
     return await docs_server.handle_tool_call(name, arguments)
 
 
-def main():
+async def main():
     """Run the MCP server."""
-    mcp.server.stdio.run(server)
+    async with mcp.server.stdio.stdio_server() as (read_stream, write_stream):
+        await server.run(read_stream, write_stream, server.create_initialization_options())
 
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())
