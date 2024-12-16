@@ -1,0 +1,19 @@
+{
+    "sections": [
+        {
+            "title": "Getting Started",
+            "path": "/getting-started",
+            "content": "Welcome to the Unblu documentation. This guide will help you get started with our platform."
+        },
+        {
+            "title": "Installation",
+            "path": "/installation",
+            "content": "Learn how to install and configure Unblu in your environment."
+        },
+        {
+            "title": "API Reference",
+            "path": "/api",
+            "content": "Complete API reference documentation for Unblu integration."
+        }
+    ]
+}
