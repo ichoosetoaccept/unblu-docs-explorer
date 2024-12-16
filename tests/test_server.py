@@ -60,3 +60,38 @@ async def test_server_handles_invalid_config():
     """Verify server properly handles invalid config file."""
     with pytest.raises(DocumentationError):
         await UnbluDocsServer.create("nonexistent_config.json")
+
+
+@pytest.mark.asyncio
+async def test_get_resource_success(config_path):
+    """Verify server can retrieve a specific resource."""
+    server = await UnbluDocsServer.create(config_path)
+    resource = await server.get_resource("docs://installation")
+
+    assert isinstance(resource, types.Resource)
+    assert str(resource.uri) == "docs://installation"
+    assert resource.name == "Installation Guide"
+    assert resource.mimeType == "text/html"
+
+
+@pytest.mark.asyncio
+async def test_get_resource_not_found(config_path):
+    """Verify server handles non-existent resources properly."""
+    server = await UnbluDocsServer.create(config_path)
+    with pytest.raises(DocumentationError) as exc_info:
+        await server.get_resource("docs://nonexistent")
+
+    assert "Resource not found" in str(exc_info.value)
+
+
+@pytest.mark.asyncio
+async def test_get_resource_handles_uri_formats(config_path):
+    """Verify server handles different URI formats correctly."""
+    server = await UnbluDocsServer.create(config_path)
+
+    # These should all return the same resource
+    uris = ["docs://installation", "docs://installation/", "installation"]
+
+    resources = [await server.get_resource(uri) for uri in uris]
+    assert all(r.name == "Installation Guide" for r in resources)
+    assert all(str(r.uri) == "docs://installation" for r in resources)
