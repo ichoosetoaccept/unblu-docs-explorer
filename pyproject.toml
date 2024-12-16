@@ -1,0 +1,25 @@
+[project]
+name = "unblu-docs-explorer"
+version = "0.1.0"
+description = "A way to explore Unblu documentation and ask questions about it"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [ "mcp>=1.1.2",]
+[[project.authors]]
+name = "Ismar Iljazovic"
+email = "ismart@gmail.com"
+
+[build-system]
+requires = [ "hatchling",]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "ruff>=0.8.3",
+]
+
+[project.scripts]
+unblu-docs-explorer = "unblu_docs_explorer:main"
+
+[tool.ruff]
+line-length = 120
