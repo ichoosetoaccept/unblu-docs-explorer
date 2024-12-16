@@ -13,6 +13,14 @@ class DocumentSection:
     content: str
     subsections: List["DocumentSection"] = field(default_factory=list)
     metadata: Dict[str, str] = field(default_factory=dict)
+    heading_level: int = 1
+    word_count: int = 0
+
+    def calculate_word_count(self) -> None:
+        """Calculate and set the word count for this section."""
+        self.word_count = len(self.content.split())
+        for subsection in self.subsections:
+            subsection.calculate_word_count()
 
 
 @dataclass

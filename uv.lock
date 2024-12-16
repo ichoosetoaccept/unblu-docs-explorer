@@ -491,6 +491,7 @@ dependencies = [
     { name = "httpx" },
     { name = "mcp" },
     { name = "pre-commit" },
+    { name = "pytest-asyncio" },
 ]
 
 [package.dev-dependencies]
@@ -508,6 +509,7 @@ requires-dist = [
     { name = "httpx", specifier = ">=0.24.0" },
     { name = "mcp", specifier = ">=1.1.2" },
     { name = "pre-commit", specifier = ">=4.0.1" },
+    { name = "pytest-asyncio", specifier = ">=0.25.0" },
 ]
 
 [package.metadata.requires-dev]
