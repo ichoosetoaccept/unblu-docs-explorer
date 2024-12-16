@@ -1,0 +1,189 @@
+I'll optimize this as a structured project plan to help guide LLM-assisted development of an Unblu documentation MCP server. I'll break it down into clear phases with explanations of rationale and implementation details.
+
+# Project Plan: Unblu Documentation MCP Server
+
+## Project Overview
+The goal is to create an MCP server that makes Unblu's documentation accessible, searchable, and queryable through Claude. This server will act as a bridge between Claude and Unblu's documentation, enabling natural language queries and structured access to documentation content.
+
+## Phase 1: Foundation Setup
+
+### Core Infrastructure
+Create the base Python project structure:
+```python
+unblu_docs_mcp/
+├── pyproject.toml          # Project metadata and dependencies
+├── config/
+│   └── settings.json      # Configuration file
+├── src/
+│   └── unblu_docs_mcp/
+│       ├── __init__.py
+│       ├── server.py      # Main MCP server implementation
+│       ├── fetcher.py     # Documentation fetching logic
+│       ├── processor.py   # Content processing and structuring
+│       └── cache.py       # Caching mechanisms
+└── tests/                 # Test suite
+```
+
+Key dependencies to include in pyproject.toml:
+- mcp: For MCP server implementation
+- httpx: For asynchronous HTTP requests
+- beautifulsoup4: For HTML parsing
+- pytest: For testing
+- pytest-asyncio: For async test support
+
+## Phase 2: Documentation Fetching System
+
+### Content Acquisition Layer
+Implementation focus points:
+```python
+class DocumentationFetcher:
+    """Handles fetching and initial processing of Unblu documentation."""
+    
+    def __init__(self, base_url: str, cache_dir: Path):
+        self.base_url = base_url
+        self.cache_dir = cache_dir
+        self.session = httpx.AsyncClient()
+    
+    async def fetch_section(self, section_url: str) -> dict:
+        """
+        Fetches a single documentation section and returns structured content.
+        Returns: {
+            'title': str,
+            'content': str,
+            'subsections': List[dict],
+            'metadata': dict
+        }
+        """
+        pass
+
+    async def build_documentation_tree(self) -> dict:
+        """
+        Creates a hierarchical structure of all documentation content.
+        This forms the basis for the search index.
+        """
+        pass
+```
+
+## Phase 3: MCP Resource Implementation
+
+### Resource Interface
+Key components to implement:
+```python
+class UnbluDocsServer:
+    """Main MCP server implementation for Unblu documentation."""
+    
+    def __init__(self, config_path: Path):
+        self.app = Server("unblu-docs")
+        self.docs_cache = DocumentationCache()
+        self.fetcher = DocumentationFetcher()
+    
+    @app.list_resources()
+    async def list_resources(self) -> list[types.Resource]:
+        """
+        Exposes documentation sections as resources.
+        Each major section becomes a queryable resource.
+        """
+        pass
+    
+    @app.read_resource()
+    async def read_resource(self, uri: str) -> str:
+        """
+        Retrieves content for a specific documentation section.
+        Handles subsection access through URI parameters.
+        """
+        pass
+```
+
+## Phase 4: Search and Query Tools
+
+### Tool Implementation
+Essential tools to create:
+```python
+@app.list_tools()
+async def list_tools() -> list[types.Tool]:
+    """Define the search and query interface tools."""
+    return [
+        types.Tool(
+            name="search_docs",
+            description="Full-text search across Unblu documentation",
+            inputSchema={...}  # Detailed search parameters schema
+        ),
+        types.Tool(
+            name="get_topic_info",
+            description="Retrieve specific topic information",
+            inputSchema={...}  # Topic lookup parameters schema
+        )
+    ]
+
+@app.call_tool()
+async def handle_tool_call(name: str, arguments: dict) -> Any:
+    """
+    Implements tool logic for:
+    - Full-text search
+    - Topic retrieval
+    - Context-aware documentation navigation
+    """
+    pass
+```
+
+## Phase 5: Caching and Updates
+
+### Cache Management System
+Implement an efficient caching strategy:
+```python
+class DocumentationCache:
+    """
+    Manages local storage of documentation content with
+    automatic updates and versioning.
+    """
+    
+    def __init__(self, cache_dir: Path, update_interval: int):
+        self.cache_dir = cache_dir
+        self.update_interval = update_interval
+        
+    async def update_cache(self):
+        """
+        Fetches latest documentation and updates cache
+        only for changed content.
+        """
+        pass
+    
+    async def get_section(self, section_id: str) -> Optional[dict]:
+        """
+        Retrieves cached section content with metadata.
+        Triggers update if content is stale.
+        """
+        pass
+```
+
+## Implementation Sequence
+
+1. Start with the foundation setup and basic MCP server structure
+2. Implement documentation fetching with a simple caching mechanism
+3. Add basic resource exposure for documentation sections
+4. Implement search functionality
+5. Enhance caching and update mechanisms
+6. Add advanced query capabilities and topic information retrieval
+7. Implement testing and validation
+8. Configure integration with Claude Desktop
+
+## Testing Strategy
+
+Create tests for:
+- Documentation fetching reliability
+- Cache update mechanisms
+- Search accuracy
+- Resource access patterns
+- Tool functionality
+- Edge cases (network issues, invalid queries)
+
+## Next Steps
+
+Would you like me to provide detailed implementation code for any of these components? We can focus on:
+1. The documentation fetching system
+2. The search implementation
+3. The caching mechanism
+4. The MCP server setup
+5. The testing framework
+
+This plan provides a structured approach while maintaining flexibility for adjustments based on specific needs or challenges encountered during implementation.
