@@ -12,3 +12,4 @@ wheels/
 # Windsurf editor
 .windsurfrules
 .vscode
+.markdownlint.json
