@@ -1,0 +1,99 @@
+# Building MCP Clients
+
+This guide explains how to build a LLM-powered chatbot client that connects to MCP servers.
+
+## System Requirements
+- Mac or Windows computer
+- Latest Python version
+- Latest version of uv
+
+## Setup Steps
+
+1. Environment Setup:
+```bash
+uv init mcp-client
+cd mcp-client
+uv venv
+source .venv/bin/activate  # Unix/MacOS
+# or .venv\Scripts\activate  # Windows
+uv add mcp anthropic python-dotenv
+```
+
+2. API Configuration:
+- Get Anthropic API key from Anthropic Console
+- Create .env file with: ANTHROPIC_API_KEY=<your key>
+- Add .env to .gitignore
+
+## Client Implementation
+
+### Core Components:
+
+1. Basic Client Structure
+```python
+class MCPClient:
+    def __init__(self):
+        self.session: Optional[ClientSession] = None
+        self.exit_stack = AsyncExitStack()
+        self.anthropic = Anthropic()
+```
+
+2. Server Connection:
+```python
+async def connect_to_server(self, server_script_path: str):
+    # Validate script type and set up connection
+    # Initialize session and list tools
+```
+
+3. Query Processing:
+- Handles Claude's responses and tool calls
+- Manages message flow between Claude and tools
+- Combines results into coherent responses
+
+4. Interactive Interface:
+- Command-line interface for queries
+- Error handling and graceful exit
+- Resource cleanup
+
+## Best Practices
+
+1. Error Handling:
+- Wrap tool calls in try-catch blocks
+- Provide meaningful error messages
+- Handle connection issues gracefully
+
+2. Resource Management:
+- Use AsyncExitStack for cleanup
+- Close connections properly
+- Handle disconnections
+
+3. Security:
+- Store API keys securely
+- Validate server responses
+- Manage tool permissions carefully
+
+## Troubleshooting
+
+Common Issues:
+1. Server Path Problems:
+- Use absolute paths if relative paths fail
+- Check file extensions (.py or .js)
+- Verify correct path format for OS
+
+2. Response Timing:
+- Initial response may take up to 30 seconds
+- Subsequent responses are faster
+- Don't interrupt initial waiting period
+
+3. Common Errors:
+- FileNotFoundError: Check server path
+- Connection refused: Verify server running
+- Tool execution failed: Check environment variables
+- Timeout error: Adjust client configuration
+
+## Running the Client
+
+Basic usage:
+```bash
+uv run client.py path/to/server.py  # Python server
+uv run client.py path/to/build/index.js  # Node.js server
+```

@@ -1,0 +1,97 @@
+# MCP Debugging Guide
+
+## Available Debugging Tools
+
+1. MCP Inspector:
+- Interactive debugging interface
+- Direct server testing
+- Real-time monitoring
+
+2. Claude Desktop Developer Tools:
+- Integration testing
+- Log collection
+- Chrome DevTools integration
+
+3. Server Logging:
+- Custom logging implementations
+- Error tracking
+- Performance monitoring
+
+## Using Chrome DevTools
+
+1. Enable DevTools:
+```bash
+jq '.allowDevTools = true' ~/Library/Application\ Support/Claude/developer_settings.json > tmp.json \
+  && mv tmp.json ~/Library/Application\ Support/Claude/developer_settings.json
+```
+
+2. Open DevTools: Command-Option-Shift-i
+- Main content window
+- App title bar window
+
+## Common Issues
+
+1. Environment Variables:
+- Inherited subset: USER, HOME, PATH
+- Custom variables in claude_desktop_config.json
+```json
+{
+  "myserver": {
+    "command": "mcp-server-myapp",
+    "env": {
+      "MYAPP_API_KEY": "some_key"
+    }
+  }
+}
+```
+
+2. Server Initialization Problems:
+- Path issues
+- Configuration errors
+- Environment problems
+
+## Implementing Logging
+
+1. Server-side:
+- Use stderr for local transport
+- Implement log message notifications
+- Track key events
+
+2. Client-side:
+- Enable debug logging
+- Monitor network traffic
+- Track message exchanges
+- Record error states
+
+## Best Practices
+
+1. Structured Logging:
+- Consistent formats
+- Include context
+- Add timestamps
+- Track request IDs
+
+2. Error Handling:
+- Log stack traces
+- Include context
+- Track patterns
+- Monitor recovery
+
+3. Security:
+- Sanitize logs
+- Protect credentials
+- Mask sensitive data
+- Monitor access
+
+## Getting Help
+
+1. First Steps:
+- Check server logs
+- Test with Inspector
+- Review configuration
+- Verify environment
+
+2. Support Resources:
+- GitHub issues
+- GitHub discussions
+- Documentation

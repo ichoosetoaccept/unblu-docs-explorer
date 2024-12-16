@@ -1,0 +1,54 @@
+# Building MCP with LLMs
+
+This guide explains how to use Large Language Models (LLMs) like Claude to accelerate MCP development.
+
+## Preparation
+
+1. Gather Documentation:
+- Full MCP documentation from modelcontextprotocol.io/llms-full.txt
+- MCP TypeScript or Python SDK README files
+- Relevant API documentation
+
+2. Server Specification:
+Define clearly:
+- Resources to expose
+- Tools to provide
+- Required prompts
+- External system integrations
+
+## Development Process
+
+1. Core Implementation:
+- Start with basic functionality
+- Iterate to add features
+- Get explanations for unclear parts
+- Test and handle edge cases
+
+2. Key MCP Features:
+- Resource management
+- Tool definitions
+- Prompt templates
+- Error handling
+- Connection setup
+
+## Best Practices
+
+1. Development Strategy:
+- Break down complex servers
+- Test components individually
+- Validate inputs
+- Maintain security
+- Document thoroughly
+
+2. Testing:
+- Review generated code carefully
+- Use MCP Inspector for testing
+- Test with Claude.app
+- Iterate based on usage
+
+## Ongoing Development
+
+- Modify and improve based on requirements
+- Implement new features as needed
+- Maintain documentation
+- Monitor performance

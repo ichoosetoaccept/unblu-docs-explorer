@@ -1,0 +1,79 @@
+# MCP Inspector Guide
+
+The MCP Inspector is an interactive tool for testing and debugging MCP servers.
+
+## Installation
+
+Basic usage through npx:
+```bash
+npx @modelcontextprotocol/inspector <command>
+npx @modelcontextprotocol/inspector <command> <arg1> <arg2>
+```
+
+## Starting Different Server Types
+
+1. NPM/PyPi Packages:
+```bash
+# NPM package
+npx -y @modelcontextprotocol/inspector npx <package-name> <args>
+
+# Example
+npx -y @modelcontextprotocol/inspector npx server-postgres postgres://127.0.0.1/testdb
+```
+
+2. Local Servers:
+```bash
+# TypeScript
+npx @modelcontextprotocol/inspector node path/to/server/index.js args...
+
+# Python
+npx @modelcontextprotocol/inspector python path/to/server/main.py args...
+```
+
+## Key Features
+
+1. Server Connection Pane:
+- Transport selection
+- Command-line argument customization
+- Environment configuration
+
+2. Resources Tab:
+- Resource listing
+- Metadata display
+- Content inspection
+- Subscription testing
+
+3. Prompts Tab:
+- Template display
+- Argument testing
+- Message preview
+
+4. Tools Tab:
+- Tool listing
+- Schema display
+- Input testing
+- Result viewing
+
+5. Notifications Pane:
+- Server logs
+- System notifications
+
+## Development Workflow
+
+1. Initial Development:
+- Launch Inspector
+- Verify connectivity
+- Check capabilities
+
+2. Iterative Testing:
+- Make server changes
+- Rebuild
+- Reconnect Inspector
+- Test features
+- Monitor messages
+
+3. Edge Case Testing:
+- Invalid inputs
+- Missing arguments
+- Concurrent operations
+- Error handling
