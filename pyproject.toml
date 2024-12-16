@@ -4,7 +4,10 @@ version = "0.1.0"
 description = "A way to explore Unblu documentation and ask questions about it"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = [ "mcp>=1.1.2",]
+dependencies = [
+ "mcp>=1.1.2",
+ "pre-commit>=4.0.1",
+]
 [[project.authors]]
 name = "Ismar Iljazovic"
 email = "ismart@gmail.com"
