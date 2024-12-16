@@ -67,8 +67,10 @@ class UnbluDocsServer:
 
     async def get_resource(self, uri: str) -> types.Resource:
         """Get a specific documentation resource."""
+        # Convert AnyUrl to string if needed
+        uri_str = str(uri) if not isinstance(uri, str) else uri
         # Remove the docs:// prefix and any leading/trailing slashes
-        path = "/" + uri.replace("docs://", "").strip("/")
+        path = "/" + uri_str.replace("docs://", "").strip("/")
 
         for section in self.config["sections"]:
             if section["path"] == path:
