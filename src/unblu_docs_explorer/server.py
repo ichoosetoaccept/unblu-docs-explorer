@@ -65,6 +65,22 @@ class UnbluDocsServer:
             for section in self.config["sections"]
         ]
 
+    async def get_resource(self, uri: str) -> types.Resource:
+        """Get a specific documentation resource."""
+        # Remove the docs:// prefix and any leading/trailing slashes
+        path = "/" + uri.replace("docs://", "").strip("/")
+
+        for section in self.config["sections"]:
+            if section["path"] == path:
+                return types.Resource(
+                    uri=AnyUrl(f"docs://{section['path'].lstrip('/')}"),
+                    name=section["title"],
+                    description=section.get("content", f"Documentation for {section['title']}"),
+                    mimeType="text/html",
+                    content=section.get("content", f"Documentation for {section['title']}"),
+                )
+        raise DocumentationError(f"Resource not found: {uri}", operation="get_resource")
+
     async def handle_tool_call(self, name: str, arguments: dict | None) -> any:
         """Handle tool execution requests."""
         if name == "search_docs":
@@ -113,6 +129,13 @@ async def handle_list_tools() -> list[types.Tool]:
             },
         )
     ]
+
+
+@server.read_resource()
+async def handle_get_resource(uri: str) -> types.Resource:
+    """Handle resource retrieval requests."""
+    docs_server = await get_docs_server()
+    return await docs_server.get_resource(uri)
 
 
 @server.call_tool()
