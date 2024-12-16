@@ -74,12 +74,14 @@ class UnbluDocsServer:
 
         for section in self.config["sections"]:
             if section["path"] == path:
+                # Get content or use default
+                content = section.get("content", f"Documentation for {section['title']}")
                 return types.Resource(
                     uri=AnyUrl(f"docs://{section['path'].lstrip('/')}"),
                     name=section["title"],
-                    description=section.get("content", f"Documentation for {section['title']}"),
+                    description=content,
                     mimeType="text/html",
-                    content=section.get("content", f"Documentation for {section['title']}"),
+                    content=content,
                 )
         raise DocumentationError(f"Resource not found: {uri}", operation="get_resource")
 
